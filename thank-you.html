@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>تمام — بنحوّلك على واتساب</title>
+<style>
+:root{--font:system-ui,-apple-system,"Segoe UI",Tahoma,"Noto Sans Arabic",Arial,sans-serif;
+  --bg:#0b1618;--surface:#122225;--line:#23434a;
+  --ink:#f2f7f6;--ink-soft:#a6c0c0;--brand:#13c2a0;--brand-ink:#05201c;--radius:16px}
+@media(prefers-color-scheme:light){:root:not([data-theme=dark]){
+  --bg:#f5f9f9;--surface:#fff;--line:#d7e6e5;
+  --ink:#0b1618;--ink-soft:#4b6a6a;--brand:#0c9b80;--brand-ink:#fff}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.75;
+  -webkit-font-smoothing:antialiased;min-height:100vh;display:grid;place-items:center;padding:24px 0}
+.wrap{width:min(480px,92%);text-align:center}
+.logo{font-weight:700;font-size:1.3rem;margin-bottom:22px}
+.logo span{color:var(--brand)}
+.steps{display:flex;gap:6px;justify-content:center;margin-bottom:20px}
+.steps i{width:34px;height:4px;border-radius:99px;background:var(--brand)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:34px 26px}
+.tick{width:64px;height:64px;border-radius:50%;background:var(--brand);color:var(--brand-ink);
+  display:grid;place-items:center;font-size:1.9rem;margin:0 auto 18px}
+h1{font-size:clamp(1.3rem,4.5vw,1.65rem);margin-bottom:8px}
+p{color:var(--ink-soft);font-size:.97rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;width:100%;
+  margin-top:22px;padding:17px;background:#25D366;color:#fff;font-weight:700;font-size:1.02rem;
+  border:0;border-radius:12px;text-decoration:none;font-family:inherit;
+  transition:transform .15s,filter .15s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.micro{font-size:.85rem;margin-top:14px}
+.back{display:inline-block;margin-top:18px;color:var(--ink-soft);font-size:.87rem;
+  text-decoration:underline;text-underline-offset:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo">bond<span>.</span></div>
+  <div class="steps"><i></i><i></i></div>
+  <div class="card">
+    <div class="tick">✓</div>
+    <h1 id="hi">وصلتنا بياناتك</h1>
+    <p>بنفتحلك واتساب دلوقتي برسالة جاهزة — ابعتها وهنرد عليك في نفس اليوم.</p>
+    <a class="btn" id="wa" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.03c-.25.69-1.44 1.32-1.99 1.37-.53.05-1.02.24-3.45-.72-2.9-1.14-4.74-4.1-4.88-4.29-.14-.19-1.16-1.55-1.16-2.95s.73-2.09.99-2.38c.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.57.81 1.97.88 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.47-.14.16-.3.36-.42.48-.14.14-.29.29-.12.57.16.29.73 1.2 1.56 1.94 1.07.95 1.98 1.25 2.26 1.39.28.14.44.12.61-.07.16-.19.7-.81.88-1.09.19-.29.38-.24.64-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.11.07.66-.18 1.35z"/></svg>
+      افتح واتساب
+    </a>
+    <p class="micro" id="note">بنحوّلك خلال <b id="c">2</b> ثانية…</p>
+    <a class="back" href="./">ارجع للصفحة الرئيسية</a>
+  </div>
+</div>
+
+<script>
+var BOND_WHATSAPP="201050858831";
+var PIXEL_FB="2530287744123204", PIXEL_TT="DAKLEV3C77UC8FLK7SUG", GA4_ID="G-1KXNSHK2PW";
+
+var d={};
+try{ d=JSON.parse(sessionStorage.getItem("bond_lead")||"{}"); }catch(e){}
+
+var titleRole = d.role==="owner" ? "صاحب عيادة" : d.role==="staff" ? "شغّال في عيادة" : "دكتور";
+var msg = "السلام عليكم، أنا "+(d.role==="doctor"?"د. ":"")+(d.name||"")
+        + " — "+titleRole+(d.spec?" — تخصص "+d.spec:"")+"."
+        + (d.page?"\nصفحة العيادة: "+d.page:"")
+        + "\nحابب أعرف تفاصيل خدمات بوند للعيادات.";
+var link = "https://wa.me/"+BOND_WHATSAPP+"?text="+encodeURIComponent(msg);
+document.getElementById("wa").href = link;
+if(d.name) document.getElementById("hi").textContent = "تمام يا "+(d.role==="doctor"?"دكتور ":"")+d.name;
+
+// التتبّع: التحويل بيتسجّل هنا — وصول الصفحة دي = ليد مؤهل
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+(function(){
+  var g=document.createElement("script");
+  g.async=true; g.src="https://www.googletagmanager.com/gtag/js?id="+GA4_ID;
+  document.head.appendChild(g);
+  gtag("js",new Date()); gtag("config",GA4_ID);
+  gtag("event","generate_lead",{role:d.role||"",specialty:d.spec||""});
+
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+  (window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
+  fbq("init",PIXEL_FB); fbq("track","PageView"); fbq("track","Lead",{content_category:d.spec||""});
+
+  !function(w,dd,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
+  ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
+  ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
+  for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
+  ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};
+  ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js";
+  ttq._i=ttq._i||{};ttq._i[e]=[];ttq._i[e]._u=r;ttq._t=ttq._t||{};ttq._t[e]=+new Date;
+  ttq._o=ttq._o||{};ttq._o[e]=n||{};n=dd.createElement("script");
+  n.type="text/javascript";n.async=!0;n.src=r+"?sdkid="+e+"&lib="+t;
+  e=dd.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+  ttq.load(PIXEL_TT); ttq.page(); ttq.track("SubmitForm");}(window,document,"ttq");
+})();
+
+// تحويل تلقائي لواتساب — location مش window.open عشان المتصفح ميمنعوش
+var n=2, el=document.getElementById("c");
+var t=setInterval(function(){
+  n--; if(el) el.textContent=n;
+  if(n<=0){ clearInterval(t);
+    document.getElementById("note").textContent="لو الواتساب مفتحش لوحده، دوس الزرار فوق.";
+    location.href=link;
+  }
+},1000);
+</script>
+</body>
+</html>
